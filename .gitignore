@@ -1,5 +1,13 @@
 *.py[cod]
 
+# Experiments
+
+compiledir
+smac_2_06_01-dev_*
+spearmint_april2013_mod_*
+hyperopt_august2013_mod_*
+random_hyperopt_august2013_mod_*
+
 # Optimizers
 HPOlib/optimizers/smac_2_06_01-dev/*
 HPOlib/optimizers/spearmint_april2013_mod/*

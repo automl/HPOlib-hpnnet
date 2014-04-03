@@ -16,17 +16,20 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import numpy as np
-from skdata.larochelle_etal_2007.view import ConvexVectorXV as Protocol
-import skdata
-# If anybody knows a better solutions, please tell me;)
-import sys
 import os
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-import bergstra_2011_helper
+import sys
+import time
+
 import hpnnet
 import hpnnet.nips2011
-import benchmark_util
+from skdata.larochelle_etal_2007.view import ConvexVectorXV as Protocol
+import skdata
+
+# If anybody knows a better solutions, please tell me;)
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+import bergstra_2011_helper
+import HPOlib.benchmark_util as benchmark_util
+
 __authors__ = ["Katharina Eggensperger", "Matthias Feurer"]
 __contact__ = "automl.org"
 
@@ -45,19 +48,6 @@ def main(params, **kwargs):
     kwargs['valid_targets'] = valid_targets
     kwargs['test'] = test
     kwargs['test_targets'] = test_targets
-
-    """
-    convex_cv = np.load("../../convex_cv.npy")
-    convex_labels_cv = np.load("../../convex_labels_cv.npy")
-    convex_test = np.load("../../convex_test.npy")
-    convex_labels_test = np.load("../../convex_labels_test.npy")
-    print np.all(train == convex_cv[:6500])
-    print np.all(train_targets == convex_labels_cv[:6500])
-    print np.all(valid == convex_cv[6500:])
-    print np.all(valid_targets == convex_labels_cv[6500:])
-    print np.all(test == convex_test)
-    print np.all(test_targets == convex_labels_test)
-    """
 
     print 'Params: ', params, '\n'
     space = hpnnet.nips2011.nnet1_preproc_space()
@@ -90,6 +80,9 @@ def run_test(params, **kwargs):
 
 
 if __name__ == "__main__":
+    starttime = time.time()
     args, params = benchmark_util.parse_cli()
     result = main(params, **args)
-    print "Result", result
+    duration = time.time() - starttime
+    print "Result for ParamILS: %s, %f, 1, %f, %d, %s" % \
+        ("SAT", abs(duration), result, -1, str(__file__))

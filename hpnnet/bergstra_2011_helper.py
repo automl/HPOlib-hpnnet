@@ -27,7 +27,7 @@ import hpnnet.nnet  # -- load scope with nnet symbols
 import hyperopt
 from skdata.base import Task
 
-import data_util
+import HPOlib.data_util as data_util
 
 __authors__ = ["Katharina Eggensperger", "Matthias Feurer"]
 __contact__ = "automl.org"
@@ -45,8 +45,8 @@ def fetch_data(dataset, data_name, **kwargs):
     n_valid = descr['n_valid']
     n_test = descr['n_test']
 
-    fold = kwargs['fold']
-    folds = kwargs['folds']
+    fold = int(kwargs['fold'])
+    folds = int(kwargs['folds'])
 
     if folds == 1:
         train = convex_inputs[:n_train]

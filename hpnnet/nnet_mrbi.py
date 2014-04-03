@@ -16,16 +16,20 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import os
+import sys
+import time
+
+import hpnnet
+import hpnnet.nips2011
 from skdata.larochelle_etal_2007.view import \
     MNIST_RotatedBackgroundImages_VectorXV as Protocol
 import skdata
+
 # If anybody knows a better solutions, please tell me;)
-import sys
-import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-import hpnnet.nips2011
 import bergstra_2011_helper
-import benchmark_util
+import HPOlib.benchmark_util as benchmark_util
 
 __authors__ = ["Katharina Eggensperger", "Matthias Feurer"]
 __contact__ = "automl.org"
@@ -74,6 +78,10 @@ def run_test(params, **kwargs):
 
 
 if __name__ == "__main__":
+    print sys.path
+    starttime = time.time()
     args, params = benchmark_util.parse_cli()
     result = main(params, **args)
-    print "Result", result
+    duration = time.time() - starttime
+    print "Result for ParamILS: %s, %f, 1, %f, %d, %s" % \
+        ("SAT", abs(duration), result, -1, str(__file__))
