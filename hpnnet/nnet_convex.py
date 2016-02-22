@@ -28,7 +28,7 @@ import skdata
 # If anybody knows a better solutions, please tell me;)
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 import bergstra_2011_helper
-import HPOlib.benchmark_util as benchmark_util
+import HPOlib.benchmarks.benchmark_util as benchmark_util
 
 __authors__ = ["Katharina Eggensperger", "Matthias Feurer"]
 __contact__ = "automl.org"
